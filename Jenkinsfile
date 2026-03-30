@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/your-username/api-specification-project.git'
+                git branch: 'main', url: 'https://github.com/VB161/api-specification-project.git'
             }
         }
         stage('Validate OpenAPI') {
