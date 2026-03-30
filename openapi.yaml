@@ -1,0 +1,106 @@
+openapi: 3.0.0
+info:
+  title:  Онлайн магазин
+  description: Тестовый онлайн магазин
+  version: V1
+servers:
+  - url: http://localhost:8080/api/v1
+tags:
+  - name: Product
+    description: Все действия с продуктами
+  - name: Order
+    description: Всё о заказах
+paths:
+  /products:
+    get:
+      summary: Получение списка всех продуктов
+      tags:
+        - Product
+      operationId: getAllProducts
+      parameters:
+        - name: product_name
+          in: path
+          description: Наименования товаров, которые нужно получить
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Успешное получение всех продуктов
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        '404':
+          description: Not Found
+    post:
+      summary: Создание продукта
+      tags:
+        - Product
+      operationId: postNewProduct
+      parameters:
+        - name: product_id
+          in: path
+          description: id нового продукта
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Успешное создание продукта
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        '404':
+          description: Not Found
+    delete:
+      summary: Удаление продукта
+      tags:
+        - Product
+      operationId: deleteProduct
+      parameters:
+        - name: product_id
+          in: path
+          description: id продукта
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Успешное удаление продукта
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        '404':
+          description: Not Found
+
+components:
+  schemas:
+    Product:
+      type: object
+      required:
+        - name:
+        - uuid:
+      properties:
+        name:
+          type: string
+          example: Пылесос
+        uuid:
+          type: string
+          example: fgikswnbfk-3213235-124124-1124edfsdfg3
+        product_id:
+          type: integer
+          format: int64
+          example: 123
+    Products:
+      type: array
+      items:
+        $ref: "#/components/schemas/Product"
+    securitySchemes:
+      ApiKeyAuth: Имя схемы
+        type: ApiKey
+        in: header
+        name: X-API-KEY
+    
